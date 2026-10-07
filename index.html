@@ -1,0 +1,39 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import * as Dialog from "@radix-ui/react-dialog";
+import { ArrowUpRight, Menu, X, Leaf } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import spaImage from "@/assets/spa-massage.jpg.asset.json";
+
+export const Route = createFileRoute("/")({
+  head: () => ({ meta: [
+    { title: "Vitória Spa | Relaxamento profundo e bem-estar" },
+    { name: "description", content: "Tratamentos corporais e faciais exclusivos para renovar suas energias em um ambiente acolhedor e sofisticado. Conheça o Vitória Spa." },
+    { property: "og:title", content: "Vitória Spa | Seu momento de bem-estar" },
+    { property: "og:description", content: "Uma experiência de relaxamento com tratamentos corporais e faciais exclusivos." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
+  component: Index,
+});
+
+const details = {
+  "Serviços": { title: "Cuidado em cada detalhe", text: "Tratamentos corporais e faciais exclusivos para renovar suas energias em um ambiente acolhedor e sofisticado." },
+  "Sobre Nós": { title: "Vitória Spa", text: "Um espaço dedicado ao seu momento de relaxamento profundo e bem-estar." },
+  "Contato": { title: "Vamos conversar", text: "Nossos canais de contato estarão disponíveis em breve." },
+  "Agendar Experiência": { title: "Seu momento começa aqui", text: "Em breve, você poderá agendar sua experiência no Vitória Spa por aqui." },
+};
+type Detail = keyof typeof details;
+
+function Index() {
+  const [active, setActive] = useState<Detail | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const select = (item: Detail) => { setMenuOpen(false); setActive(item); };
+  const content = active ? details[active] : null;
+  return (
+    <main className="spa-screen">
+      <img className="spa-background" src={spaImage.url} alt="Ritual de massagem com óleos em um ambiente de spa" fetchPriority="high" />
+      <div className="spa-wash" aria-hidden="true" />
+      <div className="spa-grain" aria-hidden="true" />
+      <header className="spa-header">
++
